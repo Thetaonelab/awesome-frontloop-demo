@@ -23,7 +23,7 @@ export default function App() {
         <Showcase />
       </main>
       <Footer />
-      <HintChip />
+      {/* <HintChip /> */}
     </div>
   );
 }
