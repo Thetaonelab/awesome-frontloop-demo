@@ -2,6 +2,13 @@ node_modules
 dist
 dist-ssr
 *.local
+
+# tsc -b / build artifacts — must NOT be committed. A committed vite.config.js
+# shadows vite.config.ts (Vite loads .js first), which breaks the platform's
+# dev-server config patching in the sandbox.
+*.tsbuildinfo
+vite.config.js
+vite.config.d.ts
 .DS_Store
 .vscode/*
 !.vscode/extensions.json
