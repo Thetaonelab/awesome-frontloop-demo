@@ -37,7 +37,7 @@ export default function Hero() {
             </a>
             <a
               href="#features"
-              className="rounded-xl border border-slate-300 bg-white px-6 py-3 text-base font-semibold text-ink transition-colors hover:border-slate-400"
+              className="rounded-xl border border-red-300 bg-red-50 px-6 py-3 text-base font-semibold text-red-700 transition-colors hover:border-red-400 hover:bg-red-100"
             >
               Learn more
             </a>
