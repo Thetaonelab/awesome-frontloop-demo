@@ -51,7 +51,7 @@ export default function Hero() {
         <div className="mx-auto mt-16 grid max-w-2xl grid-cols-3 gap-6 border-t border-slate-200 pt-10">
           <Stat value="1,234" label="teams onboard" />
           <Stat value="50k+" label="boards created" />
-          <Stat value="99.9%" label="uptime" />
+          <Stat value="counter" label="uptime" />
         </div>
       </div>
     </section>
