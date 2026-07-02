@@ -37,7 +37,7 @@ export function TopBar() {
           className="grid h-9 w-9 place-items-center rounded-lg text-slate-500 transition-colors hover:bg-slate-100 hover:text-ink dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-white"
           title={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
         >
-          {theme === 'light' ? '🌙' : '☀️'}
+          {theme === 'light' ? '🌓' : '☀️'}
         </button>
 
         {/* Notifications */}
