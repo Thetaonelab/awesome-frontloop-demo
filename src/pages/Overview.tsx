@@ -32,6 +32,36 @@ function RevenueChart() {
   const maxCost = Math.max(...revenueData.map((d) => d.cost));
   const maxVal = Math.max(maxRevenue, maxCost) * 1.2;
 
+  // Quadratic trendline for revenue (least squares)
+  const n = revenueData.length;
+  let sx = 0, sx2 = 0, sx3 = 0, sx4 = 0;
+  let sy = 0, sxy = 0, sx2y = 0;
+  for (let i = 0; i < n; i++) {
+    const x = i, x2 = x * x, x3 = x2 * x, x4 = x3 * x;
+    const y = revenueData[i].revenue;
+    sx += x; sx2 += x2; sx3 += x3; sx4 += x4;
+    sy += y; sxy += x * y; sx2y += x2 * y;
+  }
+  // Solve normal equations: [sx4 sx3 sx2; sx3 sx2 sx; sx2 sx n] * [a; b; c] = [sx2y; sxy; sy]
+  const m = [
+    [sx4, sx3, sx2, sx2y],
+    [sx3, sx2, sx, sxy],
+    [sx2, sx, n, sy],
+  ];
+  for (let col = 0; col < 3; col++) {
+    let mr = col;
+    for (let r = col + 1; r < 3; r++) if (Math.abs(m[r][col]) > Math.abs(m[mr][col])) mr = r;
+    [m[col], m[mr]] = [m[mr], m[col]];
+    for (let r = col + 1; r < 3; r++) {
+      const f = m[r][col] / m[col][col];
+      for (let k = col; k < 4; k++) m[r][k] -= f * m[col][k];
+    }
+  }
+  const tc = m[2][3] / m[2][2];
+  const tb = (m[1][3] - m[1][2] * tc) / m[1][1];
+  const ta = (m[0][3] - m[0][1] * tb - m[0][2] * tc) / m[0][0];
+  const trendlineCoeffs = { a: ta, b: tb, c: tc };
+
   const W = 600;
   const H = 200;
   const PAD = { top: 10, right: 10, bottom: 28, left: 55 };
@@ -44,6 +74,19 @@ function RevenueChart() {
   const yTicks = 5;
 
   const toY = (v: number) => PAD.top + innerH - (v / maxVal) * innerH;
+
+  const trendPath = (() => {
+    const steps = 40;
+    let d = '';
+    for (let i = 0; i <= steps; i++) {
+      const x = (i / steps) * (n - 1);
+      const yv = trendlineCoeffs.a * x * x + trendlineCoeffs.b * x + trendlineCoeffs.c;
+      const cx = PAD.left + bandW * x + bandW / 2;
+      const cy = toY(yv);
+      d += `${i === 0 ? 'M' : 'L'}${cx.toFixed(1)},${cy.toFixed(1)}`;
+    }
+    return d;
+  })();
 
   // gradient defs
   const revGrad = 'url(#revGrad)';
@@ -64,6 +107,10 @@ function RevenueChart() {
           </span>
           <span className="flex items-center gap-1.5">
             <span className="h-3 w-3 rounded-sm" style={{ background: '#f97316' }} /> Revenue
+          </span>
+          <span className="flex items-center gap-1.5">
+            <svg width="14" height="4" viewBox="0 0 14 4"><line x1="0" y1="2" x2="14" y2="2" stroke="#8b5cf6" strokeWidth="2" strokeDasharray="3 2" /></svg>
+            <span className="text-slate-500">Trend</span>
           </span>
         </div>
       </div>
@@ -98,6 +145,9 @@ function RevenueChart() {
               </g>
             );
           })}
+
+          {/* Trendline (quadratic regression for revenue) */}
+          <path d={trendPath} fill="none" stroke="#8b5cf6" strokeWidth="2" strokeDasharray="5 3" opacity={0.7} />
 
           {/* Bars */}
           {revenueData.map((d, i) => {
