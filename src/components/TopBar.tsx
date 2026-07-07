@@ -1,6 +1,6 @@
 import { useTheme } from './ThemeContext';
 
-const navLinks = ['Overview', 'Analytics', 'Projects', 'Team', 'Settings'];
+const navLinks = ['Storefront', 'Dashboard', 'Analytics', 'Projects', 'Team', 'Settings'];
 
 export function TopBar() {
   const { theme, toggleTheme } = useTheme();

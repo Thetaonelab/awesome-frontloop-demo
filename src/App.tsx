@@ -6,6 +6,7 @@ import Analytics from './pages/Analytics';
 import Projects from './pages/Projects';
 import Team from './pages/Team';
 import Settings from './pages/Settings';
+import Storefront from './pages/Storefront';
 
 export default function App() {
   return (
@@ -13,7 +14,9 @@ export default function App() {
       <BrowserRouter>
         <Routes>
           <Route element={<Layout />}>
-            <Route index element={<Overview />} />
+            <Route index element={<Storefront />} />
+            <Route path="storefront" element={<Storefront />} />
+            <Route path="overview" element={<Overview />} />
             <Route path="analytics" element={<Analytics />} />
             <Route path="projects" element={<Projects />} />
             <Route path="team" element={<Team />} />
