@@ -120,22 +120,22 @@ export default function Storefront() {
 
   return (
     <div className="space-y-6">
-      {/* Header */}
-      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-        <div>
-          <h1 className="text-2xl font-extrabold tracking-tight text-ink dark:text-white">Storefront</h1>
-          <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
-            {filtered.length} product{filtered.length !== 1 ? 's' : ''}
-            {outCount > 0 && (
-              <span className="text-slate-400">
-                {' '}· {inStockCount} in stock, {outCount} out of stock
-              </span>
-            )}
-          </p>
-        </div>
+      {/* Title */}
+      <div>
+        <h1 className="text-2xl font-extrabold tracking-tight text-ink dark:text-white">Storefront</h1>
+        <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
+          {filtered.length} product{filtered.length !== 1 ? 's' : ''}
+          {outCount > 0 && (
+            <span className="text-slate-400">
+              {' '}· {inStockCount} in stock, {outCount} out of stock
+            </span>
+          )}
+        </p>
+      </div>
 
-        {/* Search */}
-        <div className="relative w-full sm:w-64">
+      {/* Search + Filters */}
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:gap-4">
+        <div className="relative w-full sm:w-72">
           <span className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">🔍</span>
           <input
             type="text"
@@ -145,11 +145,8 @@ export default function Storefront() {
             className="w-full rounded-xl border border-slate-200 bg-white py-2 pl-9 pr-3 text-sm text-ink placeholder-slate-400 outline-none transition-colors focus:border-accent focus:ring-2 focus:ring-accent/20 dark:border-slate-600 dark:bg-slate-800 dark:text-white dark:placeholder-slate-500 dark:focus:border-accent"
           />
         </div>
-      </div>
-
-      {/* Category filter chips */}
-      <div className="flex flex-wrap gap-2">
-        {categories.map((cat) => {
+        <div className="flex flex-wrap gap-2">
+          {categories.map((cat) => {
           const count =
             cat === 'All'
               ? allProducts.length
@@ -176,6 +173,7 @@ export default function Storefront() {
             </button>
           );
         })}
+      </div>
       </div>
 
       {/* Empty state */}
