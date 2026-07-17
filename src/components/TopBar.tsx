@@ -6,7 +6,7 @@ export function TopBar() {
   const { theme, toggleTheme } = useTheme();
 
   return (
-    <header className="sticky top-0 z-30 flex h-16 items-center justify-between border-b border-slate-200 bg-white/80 px-6 backdrop-blur dark:border-slate-700 dark:bg-slate-900/80">
+    <header className="sticky top-0 z-30 flex h-16 items-center justify-between overflow-hidden border-b border-slate-200 bg-white/80 px-6 backdrop-blur dark:border-slate-700 dark:bg-slate-900/80">
       {/* Mobile nav links hidden on desktop since sidebar handles it */}
       <div className="flex items-center gap-4 lg:hidden">
         <span className="text-sm font-semibold text-ink dark:text-white">Orbit</span>
