@@ -123,7 +123,7 @@ export default function Storefront() {
       {/* Header */}
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <h1 className="text-2xl font-extrabold tracking-tight text-ink dark:text-white">Storefront</h1>
+          <h1 className="text-2xl font-extrabold tracking-tight text-ink dark:text-white">Storeback</h1>
           <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
             {filtered.length} product{filtered.length !== 1 ? 's' : ''}
             {outCount > 0 && (
